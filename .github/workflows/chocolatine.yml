@@ -13,6 +13,7 @@ env:
   EXECUTABLES: "binary"
   ARGUMENTS: ""
 
+jobs:
   check_coding_style:
     name: "checks for coding style errors"
     runs-on: ubuntu latest
