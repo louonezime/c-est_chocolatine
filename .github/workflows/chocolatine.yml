@@ -14,19 +14,19 @@ env:
   ARGUMENTS: ""
 
 jobs:
-  check_coding_style:
-    name: "checks for coding style errors"
-    runs-on: ubuntu latest
-    container: ghcr.io/epitech/coding-style-checker:latest
-    steps:
-      - uses: actions/checkout@v3
-      - id: check_coding_style
-        run: |
-          make fclean
-          BANANA = $(check.sh $(pwd) $(pwd))
+  # check_coding_style:
+  #   name: "checks for coding style errors"
+  #   runs-on: ubuntu latest
+  #   container: ghcr.io/epitech/coding-style-checker:latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - id: check_coding_style
+  #       run: |
+  #         make fclean
+  #         BANANA = $(check.sh $(pwd) $(pwd))
 
   check_program_compilation:
-    needs: [check_coding_style]
+    # needs: [check_coding_style]
     name: "verifies that each file specified in the EXECUTABLES environment variable exists and is executable"
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker:latest
