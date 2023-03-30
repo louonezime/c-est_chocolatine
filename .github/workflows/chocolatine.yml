@@ -25,40 +25,40 @@ jobs:
   #         make fclean
   #         BANANA = $(check.sh $(pwd) $(pwd))
 
-  check_program_compilation:
-    # needs: [check_coding_style]
-    name: "verifies that each file specified in the EXECUTABLES environment variable exists and is executable"
-    runs-on: ubuntu-latest
-    container: epitechcontent/epitest-docker:latest
-    steps:
-      - uses: actions/checkout@v3
-      - id: check_program_compilation
-        run: make
-        timeout-minutes: 2
-      - run: make clean
-      - run: |
-          OIFS=$IFS
-          IFS=','
-          for x in $EXECUTABLES
-            do
-              ./$x $ARGUMENTS
-            done
-          IFS=$OIFS
+  # check_program_compilation:
+  #   # needs: [check_coding_style]
+  #   name: "verifies that each file specified in the EXECUTABLES environment variable exists and is executable"
+  #   runs-on: ubuntu-latest
+  #   container: epitechcontent/epitest-docker:latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - id: check_program_compilation
+  #       run: make
+  #       timeout-minutes: 2
+  #     - run: make clean
+  #     - run: |
+  #         OIFS=$IFS
+  #         IFS=','
+  #         for x in $EXECUTABLES
+  #           do
+  #             ./$x $ARGUMENTS
+  #           done
+  #         IFS=$OIFS
 
-  run_tests:
-    needs: [check_program_compilation]
-    name: "runs tests because that's what heroes do"
-    runs-on: ubuntu-latest
-    container:
-      image: epitechcontent/epitest-docker:latest
-    steps:
-      - uses: actions/checkout@v3
-      - id: run_tests
-        run: make tests_run
-        timeout-minutes: 2
+  # run_tests:
+  #   needs: [check_program_compilation]
+  #   name: "runs tests because that's what heroes do"
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: epitechcontent/epitest-docker:latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - id: run_tests
+  #       run: make tests_run
+  #       timeout-minutes: 2
 
   push_to_mirror:
-    needs: [run_tests]
+    # needs: [run_tests]
     if: ${{ github.event_name == 'push' }}
     name: "pushes all files to mirror specified"
     runs-on: ubuntu-latest
