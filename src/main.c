@@ -25,6 +25,7 @@ int main(int argc, char **argv)
     int a;
     int b;
 
+
     if (argc != 3)
         return 84;
     if (check_arg(argv[1]) != 84 || check_arg(argv[2]) != 84)
@@ -32,8 +33,7 @@ int main(int argc, char **argv)
     a = atoi(argv[1]);
     b = atoi(argv[2]);
     if (b < a){
-        write(2, "Error: the second parameter must be greater \
-than the first one.\n", 65);
+        write(2, "Error: the second parameter must be greater than the first one.\n", 65);
         return 84;
     }
     fizzbuzz(a, b);
