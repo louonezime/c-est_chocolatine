@@ -20,8 +20,6 @@ jobs:
     container: ghcr.io/epitech/coding-style-checker:latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       - id: check_coding_style
         run: |
           make fclean
