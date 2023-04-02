@@ -23,8 +23,8 @@ jobs:
         with:
           fetch-depth: 0
       - id: check_coding_style
-      - run: make fclean
-      - run: |
+        run: |
+          make fclean
           /usr/local/bin/check.sh $(pwd) $(pwd)
           cat coding-style-reports.log | while read LINE
           do
