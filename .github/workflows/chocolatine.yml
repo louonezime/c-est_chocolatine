@@ -23,7 +23,7 @@ jobs:
       - id: check_coding_style
         run: |
           make fclean
-          check.sh $(pwd) $(pwd)
+          /usr/local/bin/check.sh $(pwd) $(pwd)
           cat coding-style-reports.log | while read LINE
           do
             TYPE=$(echo $LINE | cut -d ':' -f 3 | tr -d ' ')
