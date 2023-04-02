@@ -26,8 +26,9 @@ jobs:
             TYPE=$(echo $LINE | cut -d ':' -f 3 | tr -d ' ')
             FILE=$(echo $LINE | cut -d ':' -f 1)
             AT=$(echo $LINE | cut -d ':' -f 2)
-            ERROR=$(echo $LINE | cut -d ':' -f 4)
-            echo "::error file=$FILE,line=$AT,title=$TYPE coding style error::$ERROR"
+            CODE=$(echo $LINE | cut -d ':' -f 4)
+            BANANA=$(echo "$TYPE coding style error: $FILE#L$AT")
+            echo "::error file=$FILE,line=$AT,title=$TYPE coding style error::$CODE"
           done
           if [[ "$(cat coding-style-reports.log)" != "" ]]
           then
