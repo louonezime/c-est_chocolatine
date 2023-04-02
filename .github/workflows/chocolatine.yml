@@ -16,15 +16,15 @@ env:
 jobs:
   check_coding_style:
     name: "check for coding style errors"
-    runs-on: ubuntu latest
+    runs-on: ubuntu-latest
     container: ghcr.io/epitech/coding-style-checker:latest
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - id: check_coding_style
-        run: |
-          make fclean
+      - run: make fclean
+      - run: |
           /usr/local/bin/check.sh $(pwd) $(pwd)
           cat coding-style-reports.log | while read LINE
           do
@@ -46,6 +46,8 @@ jobs:
     container: epitechcontent/epitest-docker:latest
     steps:
       - uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
       - id: check_program_compilation
         run: make
         timeout-minutes: 2
@@ -71,8 +73,10 @@ jobs:
       image: epitechcontent/epitest-docker:latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - id: run_tests
-        run: make tests_run
+      - run: make tests_run
         timeout-minutes: 2
 
   push_to_mirror:
