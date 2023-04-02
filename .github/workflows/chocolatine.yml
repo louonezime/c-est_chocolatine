@@ -20,9 +20,8 @@ jobs:
     container: ghcr.io/epitech/coding-style-checker:latest
     steps:
       - uses: actions/checkout@v3
-      - id: check_coding_style
       - run: |
-          /usr/local/bin/check.sh $(pwd) $(pwd)
+          check.sh $(pwd) $(pwd)
           cat coding-style-reports.log | while read LINE
           do
             TYPE=$(echo $LINE | cut -d ':' -f 3 | tr -d ' ')
@@ -43,7 +42,8 @@ jobs:
     container: epitechcontent/epitest-docker:latest
     steps:
       - uses: actions/checkout@v3
-      - id: check_program_compilation
+        with:
+            fetch-depth: 0
       - run: make
         timeout-minutes: 2
       - run: make clean
@@ -68,7 +68,8 @@ jobs:
       image: epitechcontent/epitest-docker:latest
     steps:
       - uses: actions/checkout@v3
-      - id: run_tests
+        with:
+          fetch-depth: 0
       - run: make tests_run
         timeout-minutes: 2
 
