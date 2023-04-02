@@ -11,33 +11,35 @@ on:
 env:
   MIRROR_URL: "git@github.com:EpitechPromo2027/B-DOP-200-PAR-2-2-chocolatine-lou.onezime.git"
   EXECUTABLES: "fizzbuzz"
-  ARGUMENTS: "10, 15"
+  ARGUMENTS: "10 15"
 
 jobs:
-  # check_coding_style:
-  #   name: "checks for coding style errors"
-  #   runs-on: ubuntu latest
-  #   container: ghcr.io/epitech/coding-style-checker:latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - id: check_coding_style
-  #       run: |
-  #         make fclean
-  #         BANANA = $(check.sh $(pwd) $(pwd))
-  #         for ERRORS in $BANANA; do
-  #           array=(`echo $ERRORS | sed 's/:/\n/g'`)
-  #           echo "::error file=${array[1]#./},title=${array[3]#./} coding style error: ${array[2]#./}::${array[4]#./}"
-  #         done
-  #         if [[ -n $BANANA ]]
-  #         then
-  #           exit 1
-  #         else
-  #           echo No coding style errors detected
-  #         fi
+  check_coding_style:
+    name: "check for coding style errors"
+    runs-on: ubuntu latest
+    container: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: check_coding_style
+        run: |
+          make fclean
+          check.sh $(pwd) $(pwd)
+          cat coding-style-reports.log | while read LINE
+          do
+            TYPE=$(echo $LINE | cut -d ':' -f 3 | tr -d ' ')
+            FILE=$(echo $LINE | cut -d ':' -f 1)
+            AT=$(echo $LINE | cut -d ':' -f 2)
+            ERROR=$(echo $LINE | cut -d ':' -f 4)
+            echo "::error file=$FILE,line=$AT,title=$TYPE coding style error::$ERROR"
+          done
+          if [[ "$(cat coding-style-reports.log)" != "" ]]
+          then
+            exit 1
+          fi
 
   check_program_compilation:
-    # needs: [check_coding_style]
-    name: "verifies that each file specified in the EXECUTABLES environment variable exists and is executable"
+    needs: [check_coding_style]
+    name: "verify that each file specified in the EXECUTABLES environment variable exists and is executable"
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker:latest
     steps:
@@ -48,16 +50,20 @@ jobs:
       - run: make clean
       - run: |
           OIFS=$IFS
-          IFS=','
+          IFS=' '
           for x in $EXECUTABLES
             do
               ./$x $ARGUMENTS
             done
           IFS=$OIFS
+          if [[ -n $EXECUTABLES ]]
+          then
+            echo Program not compiled properly
+          fi
 
   run_tests:
     needs: [check_program_compilation]
-    name: "runs tests because that's what heroes do"
+    name: "runs tests bc that's what heroes do"
     runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker:latest
@@ -65,6 +71,8 @@ jobs:
       - uses: actions/checkout@v3
       - id: run_tests
         run: make tests_run
+        run: |
+          if
         timeout-minutes: 2
 
   push_to_mirror:
