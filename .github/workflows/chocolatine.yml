@@ -10,7 +10,7 @@ on:
 
 env:
   MIRROR_URL: "git@github.com:EpitechPromo2027/B-DOP-200-PAR-2-2-chocolatine-lou.onezime.git"
-  EXECUTABLES: "fizzbuzz, mysh"
+  EXECUTABLES: "fizzbuzz"
   ARGUMENTS: "10 15"
 
 jobs:
