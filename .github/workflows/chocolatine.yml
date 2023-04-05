@@ -36,7 +36,7 @@ jobs:
           fi
 
   check_program_compilation:
-    needs: [check_coding_style]
+    # needs: [check_coding_style]
     name: "verify that each file specified in the EXECUTABLES environment variable exists and is executable"
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker:latest
