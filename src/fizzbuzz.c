@@ -26,7 +26,7 @@ int style_fix(int i)
 
 int fizzbuzz(int a, int b)
 {
-    for (int i = a;i <= b;i++){
+    for (int i = a; i <= b; i++){
         style_fix(i);
     }
     return 0;

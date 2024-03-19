@@ -13,7 +13,7 @@
 
 int check_arg(char *arg_1)
 {
-    for (int i = 0;arg_1[i] != '\0';i++){
+    for (int i = 0; arg_1[i] != '\0'; i++){
         if (arg_1[i] >= '0' && arg_1[i] <= '9')
             return 84;
     }

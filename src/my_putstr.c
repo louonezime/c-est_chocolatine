@@ -5,7 +5,7 @@
 ** c
 */
 
-void my_putchar(char c);
+#include "fizzbuzz.h"
 
 int my_putstr(char const *str)
 {
