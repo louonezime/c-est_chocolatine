@@ -11,6 +11,7 @@
 
 int style_fix(int i)
 {
+    int a = 0;
     if (i % 3 == 0 && i % 5 != 0)
         my_putstr("Fizz\n");
     if (i % 3 == 0 && i % 5 == 0)
@@ -21,6 +22,7 @@ int style_fix(int i)
         my_put_nbr(i);
         my_putchar('\n');
     }
+
     return 0;
 }
 
